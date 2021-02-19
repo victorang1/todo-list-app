@@ -1,6 +1,7 @@
 package theme;
 
 import event.ToggleThemeEvent;
+import state.ThemeState;
 
 public class LightTheme extends ThemeDecorator {
 
@@ -10,7 +11,9 @@ public class LightTheme extends ThemeDecorator {
     
     @Override
     public void changeTheme() {
-        currentState = currentState.switchTheme();
+        System.out.println("CURRENT STATE CHANGE THEME = " + currentState);
         mediator.broadcast(new ToggleThemeEvent(currentState));
+        currentState = currentState.switchTheme();
     }
+    
 }

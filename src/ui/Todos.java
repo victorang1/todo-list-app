@@ -13,6 +13,7 @@ import event.DoneEvent;
 import event.Event;
 import event.RefreshEvent;
 import event.RemoveEvent;
+import event.TodoAddedColorEvent;
 import event.ToggleThemeEvent;
 import obs.Colleague;
 import state.button.Disabled;
@@ -101,6 +102,12 @@ public class Todos extends JPanel implements Colleague {
 		}
 		else if (event instanceof ToggleThemeEvent) {
 			ToggleThemeEvent ev = (ToggleThemeEvent) event;
+			for (Todo todo: todos) {
+				todo.setColor(ev.getTextColor(), ev.getBackgroundColor());
+			}
+		}
+		else if (event instanceof TodoAddedColorEvent) {
+			TodoAddedColorEvent ev = (TodoAddedColorEvent) event;
 			for (Todo todo: todos) {
 				todo.setColor(ev.getTextColor(), ev.getBackgroundColor());
 			}

@@ -10,7 +10,7 @@ public class DarkTheme extends ThemeDecorator {
 
     @Override
     public void changeTheme() {
-        currentState = currentState.switchTheme();
         mediator.broadcast(new ToggleThemeEvent(currentState));
+        currentState = currentState.switchTheme();
     }
 }

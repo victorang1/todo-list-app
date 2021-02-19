@@ -18,4 +18,8 @@ public abstract class Theme {
     public ThemeState getCurrentState() {
         return currentState;
     }
+
+    public void setNewState(ThemeState newState) {
+        this.currentState = newState;
+    }
 }

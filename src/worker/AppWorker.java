@@ -48,24 +48,27 @@ public class AppWorker implements Colleague {
 
     private void initDate() {
         darkCal = Calendar.getInstance();
-        darkCal.set(Calendar.HOUR, 18);
+        darkCal.set(Calendar.HOUR_OF_DAY, 18);
         darkCal.set(Calendar.MINUTE, 0);
-        darkCal.set(Calendar.SHORT, 0);
+        darkCal.set(Calendar.SECOND, 0);
 
         lightCal = Calendar.getInstance();
-        lightCal.set(Calendar.HOUR, 6);
+        lightCal.set(Calendar.HOUR_OF_DAY, 6);
         lightCal.set(Calendar.MINUTE, 0);
-        lightCal.set(Calendar.SHORT, 0);
+        lightCal.set(Calendar.SECOND, 0);
     }
 
     private void setDate() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        if (hour >= 18 || hour <= 6) {
-            broadcastType = new DarkType(mediator);
+        System.out.println("CURRENT HOUR IN 24 FORMAT" + hour);
+        if (hour >= 6 && hour < 18) {
+            System.out.println("Pagi setDate");
+            broadcastType = new LightType(mediator);
         }
         else {
-            broadcastType = new LightType(mediator);
+            System.out.println("Malam setDate");
+            broadcastType = new DarkType(mediator);
         }
         broadcastType.customBroadcast();
     }
@@ -76,9 +79,13 @@ public class AppWorker implements Colleague {
         int minutes = cal.get(Calendar.MINUTE);
         int seconds = cal.get(Calendar.SECOND);
 
+        System.out.println("cal above " + hour);
+
         int selectedHour = selectedCal.get(Calendar.HOUR_OF_DAY);
         int selectedMinutes = selectedCal.get(Calendar.MINUTE);
         int selectedSeconds = selectedCal.get(Calendar.SECOND);
+
+        System.out.println("cal two " + selectedHour);
 
         return match(hour, selectedHour) && match(minutes, selectedMinutes) && match(seconds, selectedSeconds);
     }

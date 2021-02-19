@@ -31,9 +31,11 @@ public class AppMediator extends Mediator {
         ThemeOptions themeOptions = ThemeOptions.valueOf(currentState.getClass().getSimpleName());
         switch (themeOptions) {
             case LightState:
+                currentAppTheme.setNewState(currentState);
                 currentAppTheme = new LightTheme(currentAppTheme);
                 break;
             case DarkState:
+            currentAppTheme.setNewState(currentState);
                 currentAppTheme = new DarkTheme(currentAppTheme);
                 break;
         }
