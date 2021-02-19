@@ -2,7 +2,7 @@ package worker;
 
 import state.DarkState;
 import state.ThemeState;
-import ui.Mediator;
+import mediator.Mediator;
 
 public class DarkType extends BroadcastType {
     

@@ -1,6 +1,6 @@
 package event;
 
-import state.ButtonState;
+import state.button.ButtonState;
 
 public class ButtonEvent extends Event {
     

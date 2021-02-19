@@ -2,7 +2,7 @@ package worker;
 
 import state.LightState;
 import state.ThemeState;
-import ui.Mediator;
+import mediator.Mediator;
 
 public class LightType extends BroadcastType {
     

@@ -11,6 +11,7 @@ import event.DoneClickedEvent;
 import event.Event;
 import event.RemoveEvent;
 import event.ToggleThemeEvent;
+import mediator.Mediator;
 import obs.Colleague;
 
 public class Actions extends JPanel implements ActionListener, Colleague {
@@ -40,7 +41,6 @@ public class Actions extends JPanel implements ActionListener, Colleague {
 			mediator.broadcast(new DoneClickedEvent());
 			mediator.broadcast(new CheckedEvent());
 		}
-
 		else if (e.getSource().equals(remove)) {
 			mediator.broadcast(new RemoveEvent());
 			mediator.broadcast(new CheckedEvent());

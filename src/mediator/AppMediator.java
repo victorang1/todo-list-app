@@ -1,4 +1,4 @@
-package ui;
+package mediator;
 
 import event.AppThemeChanged;
 import state.ThemeState;

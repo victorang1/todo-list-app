@@ -11,6 +11,7 @@ import event.AddEvent;
 import event.Event;
 import event.ToggleThemeEvent;
 import obs.Colleague;
+import mediator.Mediator;
 
 public class TodoInput extends JPanel implements ActionListener, Colleague {
 	private JTextField text;

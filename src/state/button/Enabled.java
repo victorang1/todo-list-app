@@ -1,4 +1,4 @@
-package state;
+package state.button;
 
 public class Enabled extends ButtonState {
 

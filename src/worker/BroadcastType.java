@@ -2,7 +2,7 @@ package worker;
 
 import event.WorkerEvent;
 import state.ThemeState;
-import ui.Mediator;
+import mediator.Mediator;
 
 public abstract class BroadcastType {
 

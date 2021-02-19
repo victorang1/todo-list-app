@@ -15,8 +15,10 @@ import event.RefreshEvent;
 import event.RemoveEvent;
 import event.ToggleThemeEvent;
 import obs.Colleague;
-import state.Disabled;
-import state.Enabled;
+import state.button.Disabled;
+import state.button.Enabled;
+
+import mediator.Mediator;
 
 public class Todos extends JPanel implements Colleague {
 	private Mediator mediator;

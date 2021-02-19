@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import event.CheckedEvent;
 import event.Event;
 import obs.Colleague;
+import mediator.Mediator;
 
 public class Todo extends JPanel implements Colleague, ActionListener {
 

@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.JFrame;
 
+import event.AddEvent;
 import event.AppThemeChanged;
 import event.DoneEvent;
 import event.Event;
@@ -15,7 +16,12 @@ import theme.Theme;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-public class TodoFrame extends JFrame implements Colleague, KeyListener {
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import mediator.Mediator;
+import mediator.AppMediator;
+
+public class TodoFrame extends JFrame implements Colleague, KeyListener, MouseListener {
 
 	private Mediator mediator;
 	private Integer totalDone = 0;
@@ -30,6 +36,7 @@ public class TodoFrame extends JFrame implements Colleague, KeyListener {
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
+		this.addMouseListener(this);
 	}
 
 	private void resetTitle() {
@@ -56,6 +63,9 @@ public class TodoFrame extends JFrame implements Colleague, KeyListener {
 			WorkerEvent workerEvent = (WorkerEvent) event;
 			((AppMediator) mediator).handleChangeTheme(appTheme, workerEvent.getCurrentState());
  		}
+		 else if (event instanceof AddEvent) {
+			 
+		 }
 	}
 
 	@Override
@@ -71,5 +81,27 @@ public class TodoFrame extends JFrame implements Colleague, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+
+	@Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+        this.setFocusable(true);
+		this.requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 }

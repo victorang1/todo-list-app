@@ -1,8 +1,8 @@
 package main;
 
 import ui.Actions;
-import ui.AppMediator;
-import ui.Mediator;
+import mediator.AppMediator;
+import mediator.Mediator;
 import ui.TodoFrame;
 import ui.TodoInput;
 import ui.Todos;

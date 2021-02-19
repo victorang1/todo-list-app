@@ -1,7 +1,7 @@
 package theme;
 
 import state.ThemeState;
-import ui.Mediator;
+import mediator.Mediator;
 
 public abstract class Theme {
 

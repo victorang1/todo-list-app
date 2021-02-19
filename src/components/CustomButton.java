@@ -5,8 +5,8 @@ import javax.swing.JButton;
 import event.ButtonEvent;
 import event.Event;
 import obs.Colleague;
-import state.ButtonState;
-import state.Disabled;
+import state.button.ButtonState;
+import state.button.Disabled;
 
 public class CustomButton extends JButton implements Colleague {
 

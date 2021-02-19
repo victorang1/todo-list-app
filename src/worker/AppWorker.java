@@ -2,7 +2,7 @@ package worker;
 
 import java.util.Calendar;
 import obs.Colleague;
-import ui.Mediator;
+import mediator.Mediator;
 import event.Event;
 
 public class AppWorker implements Colleague {

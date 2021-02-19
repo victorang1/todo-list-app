@@ -1,4 +1,4 @@
-package ui;
+package mediator;
 
 import java.util.ArrayList;
 
