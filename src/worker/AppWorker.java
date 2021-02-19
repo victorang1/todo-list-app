@@ -27,12 +27,10 @@ public class AppWorker implements Colleague {
                         if (isMatch(darkCal)) {
                             broadcastType = new DarkType(mediator);
                             broadcastType.customBroadcast();
-                            break;
                         }
                         else if(isMatch(lightCal)) {
                             broadcastType = new LightType(mediator);
                             broadcastType.customBroadcast();
-                            break;
                         }
                     }
                 } catch (Exception ex) {

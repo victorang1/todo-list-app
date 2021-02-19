@@ -1,6 +1,8 @@
 package mediator;
 
 import event.AppThemeChanged;
+import state.DarkState;
+import state.LightState;
 import state.ThemeState;
 import theme.DarkTheme;
 import theme.LightTheme;
@@ -31,12 +33,12 @@ public class AppMediator extends Mediator {
         ThemeOptions themeOptions = ThemeOptions.valueOf(currentState.getClass().getSimpleName());
         switch (themeOptions) {
             case LightState:
-                currentAppTheme.setNewState(currentState);
                 currentAppTheme = new LightTheme(currentAppTheme);
+                currentAppTheme.setNewState(new DarkState());
                 break;
             case DarkState:
-            currentAppTheme.setNewState(currentState);
                 currentAppTheme = new DarkTheme(currentAppTheme);
+                currentAppTheme.setNewState(new LightState());
                 break;
         }
         currentAppTheme.changeTheme();

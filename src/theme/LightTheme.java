@@ -10,8 +10,8 @@ public class LightTheme extends ThemeDecorator {
     
     @Override
     public void changeTheme() {
-        mediator.broadcast(new ToggleThemeEvent(currentState));
         currentState = currentState.switchTheme();
+        mediator.broadcast(new ToggleThemeEvent(currentState));
     }
     
 }
