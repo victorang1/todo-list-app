@@ -17,7 +17,7 @@ import event.CheckedEvent;
 import event.Event;
 import obs.Colleague;
 
-public class Todo extends JPanel implements Colleague {
+public class Todo extends JPanel implements Colleague, ActionListener {
 
 	private Mediator mediator;
 	private Border border;
@@ -33,18 +33,15 @@ public class Todo extends JPanel implements Colleague {
 		this.setLayout(new BorderLayout());
 
 		checkbox = new JCheckBox();
-		checkbox.addActionListener(new ActionListener() {
-			@Override
-            public void actionPerformed(ActionEvent e) {
-                mediator.broadcast(new CheckedEvent());
-            }
-		});
 		this.add(checkbox, BorderLayout.WEST);
 
 		label = new JLabel(text);
+		label.setOpaque(true);
 		this.add(label, BorderLayout.CENTER);
 
 		this.mediator = mediator;
+		checkbox.addActionListener(this);
+		setOpaque(false);
 	}
 
 	public boolean isChecked() {
@@ -52,8 +49,22 @@ public class Todo extends JPanel implements Colleague {
 	}
 
 	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource().equals(checkbox)) {
+			mediator.broadcast(new CheckedEvent());
+		}
+	}
+
+	public void setColor(Color textColor, Color backgroundColor) {
+		this.label.setForeground(textColor);
+		this.label.setBackground(backgroundColor);
+		border = BorderFactory.createLineBorder(textColor, 1);
+		this.setBorder(border);
+		this.checkbox.setBackground(backgroundColor);
+		this.setBackground(backgroundColor);
+	}
+
+	@Override
 	public void update(Event event) {
-		// TODO Auto-generated method stub
-		
 	}
 }

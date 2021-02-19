@@ -1,40 +1,39 @@
 package ui;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 
+import event.AppThemeChanged;
 import event.DoneEvent;
 import event.Event;
 import event.RefreshEvent;
+import event.WorkerEvent;
 import obs.Colleague;
+import state.LightState;
+import theme.AppTheme;
+import theme.Theme;
 
-public class TodoFrame extends JFrame implements Colleague {
-	private TodoInput todoInput;
-	private Todos todos;
-	private Actions actions;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+public class TodoFrame extends JFrame implements Colleague, KeyListener {
+
 	private Mediator mediator;
 	private Integer totalDone = 0;
+	private Theme appTheme;
 
-	public TodoFrame() {
-		this.setTitle("Done: " + totalDone);
+	public TodoFrame(Mediator mediator) {
+		this.mediator = mediator;
 
-		mediator = new Form();
-		mediator.attach(this);
+		appTheme = new AppTheme(mediator, new LightState());
 
-		todoInput = new TodoInput(mediator);
-		this.add(todoInput, BorderLayout.NORTH);
+		resetTitle();
 
-		todos = new Todos(mediator);
-		this.add(todos, BorderLayout.CENTER);
+		this.setFocusable(true);
+		this.addKeyListener(this);
+	}
 
-		actions = new Actions(mediator);
-		this.add(actions, BorderLayout.SOUTH);
-
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.pack();
+	private void resetTitle() {
+		this.setTitle(String.format("Done: %s", totalDone));
 	}
 
 	@Override
@@ -42,10 +41,35 @@ public class TodoFrame extends JFrame implements Colleague {
 		if (event instanceof DoneEvent) {
 			DoneEvent doneEvent = (DoneEvent) event;
 			totalDone += doneEvent.getTotalChecked();
-			this.setTitle("Done: " + totalDone);
+			resetTitle();
 		}
 		else if (event instanceof RefreshEvent) {
 			this.pack();
+			this.setFocusable(true);
+			this.requestFocusInWindow();
 		}
+		else if (event instanceof AppThemeChanged) {
+			AppThemeChanged appThemeChanged = (AppThemeChanged) event;
+			appTheme = appThemeChanged.getNewTheme();
+		}
+		else if (event instanceof WorkerEvent) {
+			WorkerEvent workerEvent = (WorkerEvent) event;
+			((AppMediator) mediator).handleChangeTheme(appTheme, workerEvent.getCurrentState());
+ 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_N) {
+			((AppMediator) mediator).handleChangeTheme(appTheme);
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 }

@@ -8,9 +8,12 @@ import javax.swing.JPanel;
 import components.CustomButton;
 import event.CheckedEvent;
 import event.DoneClickedEvent;
+import event.Event;
 import event.RemoveEvent;
+import event.ToggleThemeEvent;
+import obs.Colleague;
 
-public class Actions extends JPanel implements ActionListener {
+public class Actions extends JPanel implements ActionListener, Colleague {
 	private Mediator mediator;
 	private CustomButton done;
 	private CustomButton remove;
@@ -38,9 +41,17 @@ public class Actions extends JPanel implements ActionListener {
 			mediator.broadcast(new CheckedEvent());
 		}
 
-		if (e.getSource().equals(remove)) {
+		else if (e.getSource().equals(remove)) {
 			mediator.broadcast(new RemoveEvent());
 			mediator.broadcast(new CheckedEvent());
+		}
+	}
+
+	@Override
+	public void update(Event event) {
+		if (event instanceof ToggleThemeEvent) {
+			ToggleThemeEvent ev = (ToggleThemeEvent) event;
+			setBackground(ev.getBackgroundColor());
 		}
 	}
 }

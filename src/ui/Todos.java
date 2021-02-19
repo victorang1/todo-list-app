@@ -13,6 +13,7 @@ import event.DoneEvent;
 import event.Event;
 import event.RefreshEvent;
 import event.RemoveEvent;
+import event.ToggleThemeEvent;
 import obs.Colleague;
 import state.Disabled;
 import state.Enabled;
@@ -25,7 +26,6 @@ public class Todos extends JPanel implements Colleague {
 	public Todos(Mediator mediator) {
 		this.todos = new Vector<>();
 		this.mediator = mediator;
-		mediator.attach(this);
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -33,7 +33,8 @@ public class Todos extends JPanel implements Colleague {
 	}
 
 	public void addTodo(String text) {
-		todos.add(new Todo(text, mediator));
+		Todo todo = new Todo(text, mediator);
+		todos.add(todo);
 		displayTodos();
 	}
 
@@ -74,19 +75,14 @@ public class Todos extends JPanel implements Colleague {
 	@Override
 	public void update(Event event) {
 		if (event instanceof CheckedEvent) {
-			Boolean isCheckedFound = false;
 			for (Todo todo : todos) {
 				if (todo.isChecked()) {
-					isCheckedFound = true;
-					break;
+					mediator.broadcast(new ButtonEvent(new Enabled()));
+					return;
 				}
 			}
-			if (isCheckedFound) {
-				mediator.broadcast(new ButtonEvent(new Enabled()));
-			}
-			else {
-				mediator.broadcast(new ButtonEvent(new Disabled()));
-			}
+			mediator.broadcast(new ButtonEvent(new Disabled()));
+			mediator.broadcast(new RefreshEvent());
 		}
 		else if (event instanceof DoneClickedEvent) {
 			Integer checked = done();
@@ -94,13 +90,18 @@ public class Todos extends JPanel implements Colleague {
 			mediator.broadcast(new RefreshEvent());
 		}
 		else if (event instanceof AddEvent) {
-			AddEvent addEvent = (AddEvent) event;
-			addTodo(addEvent.getText());
+			addTodo(((AddEvent) event).getText());
 			mediator.broadcast(new RefreshEvent());
 		}
 		else if (event instanceof RemoveEvent) {
 			remove();
 			mediator.broadcast(new RefreshEvent());
+		}
+		else if (event instanceof ToggleThemeEvent) {
+			ToggleThemeEvent ev = (ToggleThemeEvent) event;
+			for (Todo todo: todos) {
+				todo.setColor(ev.getTextColor(), ev.getBackgroundColor());
+			}
 		}
 	}
 }

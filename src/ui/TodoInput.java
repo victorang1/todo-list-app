@@ -8,8 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import event.AddEvent;
+import event.Event;
+import event.ToggleThemeEvent;
+import obs.Colleague;
 
-public class TodoInput extends JPanel implements ActionListener {
+public class TodoInput extends JPanel implements ActionListener, Colleague {
 	private JTextField text;
 	private JButton add;
 	private Mediator mediator;
@@ -36,5 +39,13 @@ public class TodoInput extends JPanel implements ActionListener {
 		mediator.broadcast(new AddEvent(todoText));
 
 		this.text.setText("");
+	}
+
+	@Override
+	public void update(Event event) {
+		if (event instanceof ToggleThemeEvent) {
+			ToggleThemeEvent ev = (ToggleThemeEvent) event;
+			setBackground(ev.getBackgroundColor());
+		}
 	}
 }
