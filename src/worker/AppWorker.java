@@ -61,13 +61,10 @@ public class AppWorker implements Colleague {
     private void setDate() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        System.out.println("CURRENT HOUR IN 24 FORMAT" + hour);
         if (hour >= 6 && hour < 18) {
-            System.out.println("Pagi setDate");
             broadcastType = new LightType(mediator);
         }
         else {
-            System.out.println("Malam setDate");
             broadcastType = new DarkType(mediator);
         }
         broadcastType.customBroadcast();
@@ -79,14 +76,10 @@ public class AppWorker implements Colleague {
         int minutes = cal.get(Calendar.MINUTE);
         int seconds = cal.get(Calendar.SECOND);
 
-        System.out.println("cal above " + hour);
-
         int selectedHour = selectedCal.get(Calendar.HOUR_OF_DAY);
         int selectedMinutes = selectedCal.get(Calendar.MINUTE);
         int selectedSeconds = selectedCal.get(Calendar.SECOND);
-
-        System.out.println("cal two " + selectedHour);
-
+        
         return match(hour, selectedHour) && match(minutes, selectedMinutes) && match(seconds, selectedSeconds);
     }
 

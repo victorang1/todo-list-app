@@ -15,7 +15,6 @@ public abstract class BroadcastType {
     public abstract ThemeState getThemeState();
     
     public void customBroadcast() {
-        System.out.println("THEMEE" + getThemeState());
         mediator.broadcast(new WorkerEvent(getThemeState()));
     }
 }

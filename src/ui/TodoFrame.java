@@ -62,7 +62,6 @@ public class TodoFrame extends JFrame implements Colleague, KeyListener, MouseLi
 		}
 		else if (event instanceof WorkerEvent) {
 			WorkerEvent workerEvent = (WorkerEvent) event;
-			System.out.println(workerEvent.getCurrentState());
 			((AppMediator) mediator).handleChangeTheme(appTheme, workerEvent.getCurrentState());
  		}
 		 else if (event instanceof AddEvent) {
