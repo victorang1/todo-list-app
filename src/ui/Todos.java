@@ -85,7 +85,6 @@ public class Todos extends JPanel implements Colleague {
 				}
 			}
 			mediator.broadcast(new ButtonEvent(new Disabled()));
-			mediator.broadcast(new RefreshEvent());
 		}
 		else if (event instanceof DoneClickedEvent) {
 			Integer checked = done();
@@ -108,9 +107,9 @@ public class Todos extends JPanel implements Colleague {
 		}
 		else if (event instanceof TodoAddedColorEvent) {
 			TodoAddedColorEvent ev = (TodoAddedColorEvent) event;
-			for (Todo todo: todos) {
-				todo.setColor(ev.getTextColor(), ev.getBackgroundColor());
-			}
+			int lastIndex = todos.size() - 1;
+			Todo lastAddedTodo = todos.get(lastIndex);
+			lastAddedTodo.setColor(ev.getTextColor(), ev.getBackgroundColor());
 		}
 	}
 }
