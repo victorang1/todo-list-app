@@ -22,8 +22,8 @@ public class CustomButton extends JButton implements Colleague {
     public void update(Event event) {
         if (event instanceof ButtonEvent) {
             ButtonEvent buttonEvent = (ButtonEvent) event;
-            state.changeState(buttonEvent.getNewState());
-            this.setEnabled(state.currentState.isEnabled());
+            state = state.changeState(buttonEvent.getNewState());
+            this.setEnabled(state.isEnabled());
         }
     }
 }

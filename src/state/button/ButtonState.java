@@ -1,11 +1,9 @@
 package state.button;
 
 public abstract class ButtonState {
-
-    public ButtonState currentState;
     
-    public void changeState(ButtonState newState) {
-        this.currentState = newState;
+    public ButtonState changeState(ButtonState newState) {
+        return newState;
     }
     
     public abstract Boolean isEnabled();
